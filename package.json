@@ -1,0 +1,27 @@
+{
+  "name": "jq-ajax-progress",
+  "version": "0.1.0",
+  "description": "jQuery plugin that adds support of `progress` promise",
+  "main": "src/jq-ajax-progress.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/likerRr/jq-ajax-progress.git"
+  },
+  "author": "Alexey Lizurchik <al.lizurchik@gmail.com> (http://likerrr.ru)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/likerRr/jq-ajax-progress/issues"
+  },
+  "homepage": "https://github.com/likerRr/jq-ajax-progress#readme",
+  "dependencies": {
+    "jquery": "^2.1.4"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0"
+  }
+}
