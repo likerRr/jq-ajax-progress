@@ -1,6 +1,6 @@
 {
   "name": "jq-ajax-progress",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "jQuery plugin that adds support of `progress` and `progressUpload` promises",
   "main": "src/jq-ajax-progress.min.js",
   "scripts": {
