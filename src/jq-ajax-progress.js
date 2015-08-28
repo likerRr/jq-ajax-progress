@@ -1,7 +1,6 @@
 /*
  * jQuery ajax progress - Lightweight plugin that adds `progress` promise to $.ajax()
- * v0.1.0
- * Copyright (c) 2015 Alexey Lizurchik
+ * Copyright (c) 2015 Alexey Lizurchik <al.lizurchik@gmail.com> (http://likerrr.ru)
  * Licensed under the MIT license
  * http://likerrr.mit-license.org/
  */

@@ -1,7 +1,7 @@
 {
   "name": "jq-ajax-progress",
-  "version": "0.1.0",
-  "description": "jQuery plugin that adds support of `progress` promise",
+  "version": "0.1.1",
+  "description": "jQuery plugin that adds support of `progress` and `progressUpload` promise",
   "main": "src/jq-ajax-progress.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
