@@ -1,5 +1,5 @@
 # jQuery Ajax Progress
-jQuery plugin that adds support of `progress` and `progressUpload` promise
+jQuery plugin that adds support of `progress` and `progressUpload` promises
 
 # Installation
 
