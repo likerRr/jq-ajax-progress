@@ -50,9 +50,9 @@ $.ajax(url, {
 
 # Build
 Install [node](https://nodejs.org/)
+
 Run `npm install && gulp`
 
 This will compress library into minified version and put it inside `src` folder
 
-# LICENSE
-[MIT](http://likerrr.mit-license.org/)
+# [MIT LICENSE](http://likerrr.mit-license.org/)
