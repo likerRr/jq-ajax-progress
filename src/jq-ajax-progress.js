@@ -54,7 +54,7 @@
         var params = [e],
           chunk = '';
 
-        if ((this.readyState == 4 || this.readyState == 3) && chunking) {
+        if (this.readyState == 3 && chunking) {
           chunk = this.responseText.substr(lastChunkLen);
           lastChunkLen = this.responseText.length;
           params.push(chunk);
