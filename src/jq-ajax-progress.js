@@ -31,13 +31,14 @@
 
     if (!options.xhr) {
       xmlHttpReq = $.ajaxSettings.xhr();
-      // Make it use our own.
-      options.xhr = function () {
-        return xmlHttpReq;
-      };
     } else {
-      xmlHttpReq = options.xhr;
+      xmlHttpReq = options.xhr();
     }
+
+    // Make it use our own.
+    options.xhr = function () {
+      return xmlHttpReq;
+    };
 
     var chunking = options.chunking || $.ajaxSettings.chunking;
 
