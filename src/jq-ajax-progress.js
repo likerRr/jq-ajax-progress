@@ -45,7 +45,7 @@
     // this line looks strange, but without it chrome doesn't catch `progress` event on uploading. Seems like engine bug
     xmlHttpReq.upload.onprogress = null;
 
-    var $newPromise = $originalAjax(url, options).promise();
+    var $newPromise = $originalAjax(url, options);
 
     // Extend our own.
     $newPromise.progress = function (handler) {
