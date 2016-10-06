@@ -17,10 +17,10 @@
     factory(jQuery);
   }
 }(function($) {
-  var $originalAjax = $.ajax;
+  var $originalAjax = $.ajax.bind($);
 
   $.ajax = function (url, options) {
-    if (typeof(url) === 'object') {
+    if (typeof url === 'object') {
       options = url;
       url = undefined;
     }
