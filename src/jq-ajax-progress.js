@@ -1,6 +1,6 @@
 /*
- * jQuery Ajax Progress - Lightweight jQuery plugin that adds support of `progress` and `uploadProgress` promises to $.ajax()
- * Copyright (c) 2015 Alexey Lizurchik <al.lizurchik@gmail.com> (http://likerrr.ru)
+ * jQuery Ajax Progress - Lightweight jQuery plugin that adds support of `progress` and `uploadProgress` events to $.ajax()
+ * Copyright (c) 2018 Alexey Lizurchik <al.lizurchik@gmail.com> (@likerR_r)
  * Licensed under the MIT license
  * http://likerrr.mit-license.org/
  */
@@ -24,59 +24,52 @@
       options = url;
       url = undefined;
     }
-    options = options || {};
 
-    // Instantiate our own.
-    var xmlHttpReq;
+    options = options || {
+      chunking: false
+    };
 
-    if (!options.xhr) {
-      xmlHttpReq = $.ajaxSettings.xhr();
-    } else {
-      xmlHttpReq = options.xhr();
-    }
+    // Get current xhr object
+    var xmlHttpReq = options.xhr ? options.xhr() : $.ajaxSettings.xhr();
+    var chunking = options.chunking || $.ajaxSettings.chunking;
 
     // Make it use our own.
     options.xhr = function () {
-      return xmlHttpReq;
-    };
-
-    var chunking = options.chunking || $.ajaxSettings.chunking;
-
-    // this line looks strange, but without it chrome doesn't catch `progress` event on uploading. Seems like engine bug
-    xmlHttpReq.upload.onprogress = null;
-
-    var $newPromise = $originalAjax(url, options);
-
-    // Extend our own.
-    $newPromise.progress = function (handler) {
-      // Download progress
-      var lastChunkLen = 0;
-      xmlHttpReq.addEventListener('progress', function (e) {
-        var params = [e],
-          chunk = '';
-
-        if (this.readyState == 3 && chunking) {
-          chunk = this.responseText.substr(lastChunkLen);
-          lastChunkLen = this.responseText.length;
-          params.push(chunk);
+      if (typeof options.uploadProgress === 'function') {
+        if (!xmlHttpReq.upload) {
+          return;
         }
-        handler.apply(this, params);
-      }, false);
 
-      return this;
-    };
+        // this line looks strange, but without it chrome doesn't catch `progress` event on uploading. Seems like chromium bug
+        xmlHttpReq.upload.onprogress = null;
 
-    $newPromise.uploadProgress = function(handler) {
-      // Upload progress
-      if (xmlHttpReq.upload) {
+        // Upload progress listener
         xmlHttpReq.upload.addEventListener('progress', function (e) {
-          handler.apply(this, [e]);
+          options.uploadProgress.call(this, e);
         }, false);
       }
 
-      return this;
+      if (typeof options.progress === 'function') {
+        var lastChunkLen = 0;
+
+        // Download progress listener
+        xmlHttpReq.addEventListener('progress', function (e) {
+          var params = [e],
+            chunk = '';
+
+          if (this.readyState === XMLHttpRequest.LOADING && chunking) {
+            chunk = this.responseText.substr(lastChunkLen);
+            lastChunkLen = this.responseText.length;
+            params.push(chunk);
+          }
+
+          options.progress.apply(this, params);
+        }, false);
+      }
+
+      return xmlHttpReq;
     };
 
-    return $newPromise;
+    return $originalAjax(url, options);
   };
 }));
